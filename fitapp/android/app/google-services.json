@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "808577197346",
+    "project_id": "fitappfirebase-d860d",
+    "storage_bucket": "fitappfirebase-d860d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808577197346:android:4f528fb0751461ada8b17b",
+        "android_client_info": {
+          "package_name": "com.example.fitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808577197346-0jqkp58vfkdbjsfb597lm3ihoie1jkg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApM9u5C6RoSKvRMqSn2YOaPEMJS5cDHMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808577197346-0jqkp58vfkdbjsfb597lm3ihoie1jkg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
