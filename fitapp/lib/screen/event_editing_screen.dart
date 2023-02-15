@@ -71,6 +71,19 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
 
   List<Widget> buildEditingActions() => [
         ElevatedButton.icon(
+          onPressed: deleteForm,
+          icon: const Icon(Icons.delete, color: Colors.white),
+          label: const Text(
+            'DELETE',
+            style: TextStyle(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+            side: const BorderSide(width: 0.5, color: Colors.white),
+            backgroundColor: Colors.red,
+            shadowColor: Colors.transparent,
+          ),
+        ),
+        ElevatedButton.icon(
           onPressed: saveForm,
           icon: const Icon(Icons.done),
           label: const Text('SAVE'),
@@ -94,12 +107,12 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
 
   Widget buildDateTimePicker() => Column(
         children: [
-          buildFrom(),
-          buildTo(),
+          buildBeginAt(),
+          buildEndAt(),
         ],
       );
 
-  Widget buildFrom() => buildHeader(
+  Widget buildBeginAt() => buildHeader(
         header: 'FROM',
         child: Row(
           children: [
@@ -121,7 +134,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
         ),
       );
 
-  Widget buildTo() => buildHeader(
+  Widget buildEndAt() => buildHeader(
         header: 'TO',
         child: Row(
           children: [
@@ -264,6 +277,16 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
           'endAt': Timestamp.fromDate(endAt),
         });
       }
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future deleteForm() async {
+    final isValid = _formKey.currentState!.validate();
+
+    if (isValid) {
+      final fireStoreReference = FirebaseFirestore.instance;
+      fireStoreReference.collection('events').doc(widget.event!.key).delete();
       Navigator.of(context).pop();
     }
   }
