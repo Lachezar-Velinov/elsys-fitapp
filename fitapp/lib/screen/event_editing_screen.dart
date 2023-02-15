@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -239,33 +240,24 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
 
-    // checkpoint
     if (isValid) {
-      final event = Event(
-        title: titleController.text,
-        description: 'Description',
-        isAllDay: false,
-        isRepeating: false,
-        beginAt: beginAt,
-        endAt: endAt,
-      );
       final isCreating = widget.event == null;
-      // final provider = Provider.of<EventProvider>(context, listen: false);
       final fireStoreReference = FirebaseFirestore.instance;
       if (isCreating) {
-        // provider.addEvent(event);
-        fireStoreReference
-            .collection("events")
-            .doc().set({
+        fireStoreReference.collection("events").doc().set({
+          'title': titleController.text,
+          'beginAt': Timestamp.fromDate(beginAt),
+          'endAt': Timestamp.fromDate(endAt),
+          'userID': FirebaseAuth.instance.currentUser!.uid,
+        });
+      } else {
+        fireStoreReference.collection('events').doc(widget.event!.key).update({
           'title': titleController.text,
           'beginAt': Timestamp.fromDate(beginAt),
           'endAt': Timestamp.fromDate(endAt),
         });
-      } else {
-        // provider.editEvent(event, widget.event!);
       }
       Navigator.of(context).pop();
-      print("Event added");
     }
   }
 }
