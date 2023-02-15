@@ -9,7 +9,9 @@ class EventDataSource extends CalendarDataSource {
   }
 
   DateTime _selectedDate = DateTime.now();
+
   DateTime get selectedDate => _selectedDate;
+
   void setSelectedDate(DateTime date) => _selectedDate = date;
 
   Event getEvent(int index) => appointments![index] as Event;

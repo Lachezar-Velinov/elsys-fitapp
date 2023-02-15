@@ -33,7 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             if (!isLogin)
               buildEntryField(title: 'name', controller: _controllerName),
-            buildEntryField(title: 'email', controller: _controllerEmail),
+            buildEntryField(
+              title: 'email',
+              controller: _controllerEmail,
+            ),
             buildEntryField(title: 'password', controller: _controllerPassword),
             buildErrorMessage(),
             buildSubmitButton(),

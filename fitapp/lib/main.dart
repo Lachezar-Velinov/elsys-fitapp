@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitapp/provider/event_provider.dart';
 import 'package:fitapp/screen/event_editing_screen.dart';
 import 'package:fitapp/widget_tree.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'auth.dart';
 import 'widget/calendar_widget.dart';
@@ -21,12 +19,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return /*ChangeNotifierProvider(
       create: (context) => EventProvider(),
-      child: */MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
-        ),
-        themeMode: ThemeMode.light,
-        home: const WidgetTree(),
+      child: */
+        MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+      themeMode: ThemeMode.light,
+      home: const WidgetTree(),
       /*),*/
     );
   }

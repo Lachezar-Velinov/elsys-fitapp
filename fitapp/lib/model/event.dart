@@ -38,7 +38,6 @@ class Event {
     );
   }
 
-
   static Event fromFireBaseSnapShotData(dynamic element, Color color) {
     return Event(
       beginAt: element.doc.data()?['beginAt'] ?? DateTime.now(),

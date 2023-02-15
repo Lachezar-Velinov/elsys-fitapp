@@ -7,6 +7,7 @@ import '../model/event_data_source.dart';
 class TasksWidget extends StatefulWidget {
   const TasksWidget({Key? key, required this.events}) : super(key: key);
   final EventDataSource events;
+
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
 }

@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '/model/event.dart';
-import '../provider/event_provider.dart';
 import '../utils.dart';
 
 class EventEditingScreen extends StatefulWidget {
@@ -28,7 +26,9 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
 
     if (widget.event == null) {
       beginAt = DateTime.now();
-      endAt = DateTime.now().add(const Duration(hours: 1));
+      endAt = DateTime.now().add(
+        const Duration(hours: 1),
+      );
     } else {
       final event = widget.event;
       beginAt = event!.beginAt;
@@ -47,7 +47,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Form(
           key: _formKey,
           child: Column(
@@ -71,18 +71,23 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
 
   List<Widget> buildEditingActions() => [
         ElevatedButton.icon(
-            onPressed: saveForm,
-            icon: Icon(Icons.done),
-            label: Text('SAVE'),
-            style: ElevatedButton.styleFrom(shadowColor: Colors.transparent)),
+          onPressed: saveForm,
+          icon: const Icon(Icons.done),
+          label: const Text('SAVE'),
+          style: ElevatedButton.styleFrom(
+            shadowColor: Colors.transparent,
+          ),
+        ),
       ];
 
   Widget buildTitle() => TextFormField(
-        style: TextStyle(fontSize: 24),
-        decoration: InputDecoration(
-            border: UnderlineInputBorder(), hintText: 'Add title'),
+        style: const TextStyle(fontSize: 24),
+        decoration: const InputDecoration(
+          border: UnderlineInputBorder(),
+          hintText: 'Add title',
+        ),
         validator: (title) =>
-            title != null && title.isEmpty ? 'Tittle cannot be empty' : null,
+            (title != null && title.isEmpty) ? 'Tittle cannot be empty' : null,
         onFieldSubmitted: (_) => saveForm(),
         controller: titleController,
       );
@@ -144,7 +149,9 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   }) =>
       ListTile(
         title: Text(text),
-        trailing: Icon(Icons.arrow_drop_down_circle_outlined),
+        trailing: const Icon(
+          Icons.arrow_drop_down_circle_outlined,
+        ),
         onTap: onClicked,
       );
 
@@ -157,7 +164,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
         children: [
           Text(
             header,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -179,7 +186,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
         date.day,
         date.hour,
         date.minute,
-      ).add(Duration(hours: 1));
+      ).add(const Duration(hours: 1));
     }
     setState(() {
       beginAt = date;

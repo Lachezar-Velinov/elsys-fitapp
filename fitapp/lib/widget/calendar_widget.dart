@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitapp/model/event.dart';
-import 'package:fitapp/provider/event_provider.dart';
 import 'package:fitapp/widget/tasks_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../model/event_data_source.dart';

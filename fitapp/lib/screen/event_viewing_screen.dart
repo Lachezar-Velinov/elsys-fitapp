@@ -34,8 +34,11 @@ class EventViewingScreen extends StatelessWidget {
             ),
           ),
           Text(
-              'Username:${FirebaseAuth.instance.currentUser!.displayName ?? 'No name'}'),
-          Text('Event description:\n${event.description}'),
+            'Username:${FirebaseAuth.instance.currentUser!.displayName ?? 'No name'}',
+          ),
+          Text(
+            'Event description:\n${event.description}',
+          ),
           Text(Utils.toDate(event.beginAt))
         ],
       ),
