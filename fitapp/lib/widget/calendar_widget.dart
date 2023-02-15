@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitapp/model/event.dart';
 import 'package:fitapp/widget/tasks_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,13 @@ class _CalenderWidgetState extends State<CalenderWidget> {
   }
 
   Future<void> getDataFromFireStore() async {
-    var snapShotsValue = await fireStoreReference.collection("events").get();
+    var snapShotsValue = await fireStoreReference
+        .collection("events")
+        .where(
+          'userID',
+          isEqualTo: FirebaseAuth.instance.currentUser!.uid,
+        )
+        .get();
 
     List<Event> list = snapShotsValue.docs
         .map(
