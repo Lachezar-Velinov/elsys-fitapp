@@ -70,7 +70,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   }
 
   List<Widget> buildEditingActions() => [
-        ElevatedButton.icon(
+        if(!isCreating()) ElevatedButton.icon(
           onPressed: deleteForm,
           icon: const Icon(Icons.delete, color: Colors.white),
           label: const Text(
@@ -257,13 +257,16 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
     }
   }
 
+  bool isCreating() {
+    return widget.event == null;
+  }
+
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      final isCreating = widget.event == null;
       final fireStoreReference = FirebaseFirestore.instance;
-      if (isCreating) {
+      if (isCreating()) {
         fireStoreReference.collection("events").doc().set({
           'title': titleController.text,
           'beginAt': Timestamp.fromDate(beginAt),
