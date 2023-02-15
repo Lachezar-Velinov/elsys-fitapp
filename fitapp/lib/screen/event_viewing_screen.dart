@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitapp/screen/event_editing_screen.dart';
+import 'package:fitapp/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,29 @@ class EventViewingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: CloseButton(),
+        leading: const CloseButton(),
         actions: buildViewingActions(context, event),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Center(
+            child: Text(
+              'Event name: ${event.title}',
+              style: const TextStyle(
+                overflow: TextOverflow.fade,
+                fontWeight: FontWeight.w600,
+                fontSize: 32,
+              ),
+            ),
+          ),
+          Text(
+              'Username:${FirebaseAuth.instance.currentUser!.displayName ?? 'No name'}'),
+          Text('Event description:\n${event.description}'),
+          Text(Utils.toDate(event.beginAt))
+        ],
       ),
     );
   }
@@ -29,7 +52,7 @@ class EventViewingScreen extends StatelessWidget {
             ),
           ),
         ),
-        icon: Icon(Icons.edit),
+        icon: const Icon(Icons.edit),
       )
     ];
   }

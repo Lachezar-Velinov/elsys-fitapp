@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         context,
         snapshot,
       ) =>
-          snapshot.hasData ? MainScreen() : LoginScreen(),
+          snapshot.hasData ? const MainScreen() : const LoginScreen(),
     );
   }
 }

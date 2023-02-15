@@ -1,15 +1,12 @@
 import 'package:fitapp/screen/event_viewing_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../model/event_data_source.dart';
-import '../provider/event_provider.dart';
 
 class TasksWidget extends StatefulWidget {
-  const TasksWidget({Key? key}) : super(key: key);
-
+  const TasksWidget({Key? key, required this.events}) : super(key: key);
+  final EventDataSource events;
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
 }
@@ -17,11 +14,11 @@ class TasksWidget extends StatefulWidget {
 class _TasksWidgetState extends State<TasksWidget> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EventProvider>(context);
-    final selectedEvents = provider.eventsOfSelectedDate;
+    //final provider = Provider.of<EventProvider>(context);
+    final selectedEvents = widget.events.appointments!;
 
     if (selectedEvents.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'No events found',
           style: TextStyle(color: Colors.black, fontSize: 24),
@@ -29,19 +26,20 @@ class _TasksWidgetState extends State<TasksWidget> {
       );
     }
     return SfCalendar(
-
       view: CalendarView.timelineDay,
-      dataSource: EventDataSource(provider.events),
-      initialDisplayDate: provider.selectedDate,
-
+      dataSource: widget.events,
+      initialDisplayDate: widget.events.selectedDate,
       appointmentBuilder: appointmentBuilder,
       onTap: (details) {
-        if(details.appointments == null) {
+        if (details.appointments == null) {
           return;
         }
         final event = details.appointments!.first;
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EventViewingScreen(event: event)));
-
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => EventViewingScreen(event: event),
+          ),
+        );
       },
     );
   }
@@ -61,7 +59,7 @@ class _TasksWidgetState extends State<TasksWidget> {
           event.title,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black87,
             fontSize: 18,
             fontWeight: FontWeight.bold,

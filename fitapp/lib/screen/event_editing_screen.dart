@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +28,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
     if (widget.event == null) {
       beginAt = DateTime.now();
       endAt = DateTime.now().add(const Duration(hours: 1));
-    }
-    else{
+    } else {
       final event = widget.event;
       beginAt = event!.beginAt;
       endAt = event.endAt;
@@ -239,6 +239,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
 
+    // checkpoint
     if (isValid) {
       final event = Event(
         title: titleController.text,
@@ -249,11 +250,19 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
         endAt: endAt,
       );
       final isCreating = widget.event == null;
-      final provider = Provider.of<EventProvider>(context, listen: false);
+      // final provider = Provider.of<EventProvider>(context, listen: false);
+      final fireStoreReference = FirebaseFirestore.instance;
       if (isCreating) {
-        provider.addEvent(event);
-      }else {
-        provider.editEvent(event, widget.event!);
+        // provider.addEvent(event);
+        fireStoreReference
+            .collection("events")
+            .doc().set({
+          'title': titleController.text,
+          'beginAt': Timestamp.fromDate(beginAt),
+          'endAt': Timestamp.fromDate(endAt),
+        });
+      } else {
+        // provider.editEvent(event, widget.event!);
       }
       Navigator.of(context).pop();
       print("Event added");

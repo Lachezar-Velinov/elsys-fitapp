@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (!isLogin)
+              buildEntryField(title: 'name', controller: _controllerName),
             buildEntryField(title: 'email', controller: _controllerEmail),
             buildEntryField(title: 'password', controller: _controllerPassword),
             buildErrorMessage(),
@@ -93,8 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> signUpWithEmailAndPassword() async {
     String email = _controllerEmail.text;
     String password = _controllerPassword.text;
+    String name = _controllerName.text;
     try {
       await Auth().signUpWithEmailAndPassword(email: email, password: password);
+      final user = FirebaseAuth.instance.currentUser!;
+      user.updateDisplayName(name);
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;

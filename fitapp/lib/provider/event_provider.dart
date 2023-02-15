@@ -1,9 +1,11 @@
+/*
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import '/model/event.dart';
 
 class EventProvider extends ChangeNotifier {
-  final List<Event> _events = [];
+  List<Event> _events = [];
 
   List<Event> get events => _events;
 
@@ -20,12 +22,14 @@ class EventProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void eventsFireStore(List<Event> events) {
+    _events = events;
+  }
+
   void editEvent(Event newEvent, Event oldEvent) {
     final index = _events.indexOf(oldEvent);
     _events[index] = newEvent;
     notifyListeners();
-
   }
-
-
 }
+*/
