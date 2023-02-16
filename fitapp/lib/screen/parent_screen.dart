@@ -20,6 +20,7 @@ class _ParentScreenState extends State<ParentScreen> {
     const ReminderWidget(),
     const ExerciseWidget(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +39,7 @@ class _ParentScreenState extends State<ParentScreen> {
   Widget buildScreen() {
     return screens[index];
   }
+
   BottomNavigationBar buildBottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
       selectedItemColor: Colors.white,
@@ -52,43 +54,53 @@ class _ParentScreenState extends State<ParentScreen> {
       },
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today_outlined),
+          icon: Icon(
+            Icons.calendar_today_outlined,
+          ),
           label: 'Calendar',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.edit_notifications_outlined),
+          icon: Icon(
+            Icons.edit_notifications_outlined,
+          ),
           label: 'Reminders',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.run_circle_outlined),
+          icon: Icon(
+            Icons.run_circle_outlined,
+          ),
           label: 'Exercises',
         ),
-
       ],
     );
   }
 
   ElevatedButton buildSignOutButton() {
     return ElevatedButton.icon(
-          onPressed: signOut,
-          icon: const Icon(Icons.exit_to_app),
-          label: const Text('Log Out'),
-          style: ElevatedButton.styleFrom(shadowColor: Colors.transparent),
-        );
+      onPressed: signOut,
+      icon: const Icon(Icons.exit_to_app),
+      label: const Text('Log Out'),
+      style: ElevatedButton.styleFrom(
+        shadowColor: Colors.transparent,
+      ),
+    );
   }
 
   FloatingActionButton? buildFloatingActionButton(BuildContext context) {
-    return
-      index == 0 ?
-      FloatingActionButton(
-      backgroundColor: Theme.of(context).primaryColor,
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-      onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const EventEditingScreen())),
-    ) : null;
+    return index == 0
+        ? FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const EventEditingScreen(),
+              ),
+            ),
+          )
+        : null;
   }
 
   Future<void> signOut() async {

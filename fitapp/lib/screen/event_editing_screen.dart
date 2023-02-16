@@ -70,19 +70,20 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   }
 
   List<Widget> buildEditingActions() => [
-        if(!isCreating()) ElevatedButton.icon(
-          onPressed: deleteForm,
-          icon: const Icon(Icons.delete, color: Colors.white),
-          label: const Text(
-            'DELETE',
-            style: TextStyle(color: Colors.white),
+        if (!isCreating())
+          ElevatedButton.icon(
+            onPressed: deleteForm,
+            icon: const Icon(Icons.delete, color: Colors.white),
+            label: const Text(
+              'DELETE',
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(
+              side: const BorderSide(width: 0.5, color: Colors.white),
+              backgroundColor: Colors.red,
+              shadowColor: Colors.transparent,
+            ),
           ),
-          style: ElevatedButton.styleFrom(
-            side: const BorderSide(width: 0.5, color: Colors.white),
-            backgroundColor: Colors.red,
-            shadowColor: Colors.transparent,
-          ),
-        ),
         ElevatedButton.icon(
           onPressed: saveForm,
           icon: const Icon(Icons.done),
@@ -251,8 +252,15 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
       if (dayTime == null) {
         return null;
       }
-      final date = DateTime(beginAt.year, beginAt.month, beginAt.day);
-      final time = Duration(hours: dayTime.hour, minutes: dayTime.minute);
+      final date = DateTime(
+        beginAt.year,
+        beginAt.month,
+        beginAt.day,
+      );
+      final time = Duration(
+        hours: dayTime.hour,
+        minutes: dayTime.minute,
+      );
       return date.add(time);
     }
   }

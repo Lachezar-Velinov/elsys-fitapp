@@ -23,7 +23,9 @@ class _CalenderWidgetState extends State<CalenderWidget> {
   @override
   void initState() {
     getDataFromFireStore().then((results) {
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((
+        timeStamp,
+      ) {
         setState(() {});
       });
     });
@@ -42,7 +44,9 @@ class _CalenderWidgetState extends State<CalenderWidget> {
         events!.setSelectedDate(details.date!);
         showModalBottomSheet(
           context: context,
-          builder: (context) => TasksWidget(events: events!),
+          builder: (context) => TasksWidget(
+            events: events!,
+          ),
         );
       },
     );
@@ -63,7 +67,9 @@ class _CalenderWidgetState extends State<CalenderWidget> {
         )
         .toList();
     setState(() {
-      events = EventDataSource(list);
+      events = EventDataSource(
+        list,
+      );
     });
   }
 }
