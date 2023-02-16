@@ -1,6 +1,6 @@
 import 'package:fitapp/auth.dart';
-import 'package:fitapp/main.dart';
 import 'package:fitapp/screen/login_register_screen.dart';
+import 'package:fitapp/screen/parent_screen.dart';
 import 'package:flutter/material.dart';
 
 class WidgetTree extends StatefulWidget {
@@ -19,7 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         context,
         snapshot,
       ) =>
-          snapshot.hasData ? const MainScreen() : const LoginScreen(),
+          snapshot.hasData ? const ParentScreen() : const LoginScreen(),
     );
   }
 }
