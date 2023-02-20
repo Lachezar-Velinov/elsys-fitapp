@@ -19,7 +19,17 @@ class _WidgetTreeState extends State<WidgetTree> {
         context,
         snapshot,
       ) =>
+          /*MultiProvider(
+        providers: [
+          ChangeNotifierProvider<EventProvider>(
+            create: (_) => EventProvider(),
+          ),
+        ],
+        builder: (context, child) {
+          return */
           snapshot.hasData ? const ParentScreen() : const LoginScreen(),
+      //   },
+      // ),
     );
   }
 }

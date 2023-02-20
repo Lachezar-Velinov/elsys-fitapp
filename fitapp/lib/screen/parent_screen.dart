@@ -1,6 +1,7 @@
 import 'package:fitapp/screen/event_editing_screen.dart';
+import 'package:fitapp/screen/reminder_editing_screen.dart';
 import 'package:fitapp/widget/exercise_widget.dart';
-import 'package:fitapp/widget/reminder_widget.dart';
+import 'package:fitapp/widget/reminder_listview_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../auth.dart';
@@ -15,9 +16,10 @@ class ParentScreen extends StatefulWidget {
 
 class _ParentScreenState extends State<ParentScreen> {
   int index = 0;
+
   final screens = [
     const CalenderWidget(),
-    const ReminderWidget(),
+    const ReminderListViewWidget(),
     const ExerciseWidget(),
   ];
 
@@ -87,23 +89,46 @@ class _ParentScreenState extends State<ParentScreen> {
   }
 
   FloatingActionButton? buildFloatingActionButton(BuildContext context) {
-    return index == 0
-        ? FloatingActionButton(
-            backgroundColor: Theme.of(context).primaryColor,
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const EventEditingScreen(),
-              ),
-            ),
-          )
-        : null;
+    if (index == 0) {
+      return buildAddEventButton(context);
+    }
+    if (index == 1) {
+      return buildAddReminderButton(context);
+    }
+    return null;
+  }
+
+  FloatingActionButton? buildAddEventButton(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Theme.of(context).primaryColor,
+      child: const Icon(
+        Icons.edit_calendar_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const EventEditingScreen(),
+        ),
+      ),
+    );
   }
 
   Future<void> signOut() async {
     await Auth().signOut();
+  }
+
+  FloatingActionButton? buildAddReminderButton(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Theme.of(context).primaryColor,
+      child: const Icon(
+        Icons.notification_add_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const ReminderEditingScreen(reminder: null),
+        ),
+      ),
+    );
   }
 }
