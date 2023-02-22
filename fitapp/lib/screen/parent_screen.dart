@@ -35,6 +35,7 @@ class _ParentScreenState extends State<ParentScreen> {
       bottomNavigationBar: buildBottomNavigationBar(context),
       body: buildScreen(),
       floatingActionButton: buildFloatingActionButton(context),
+
     );
   }
 

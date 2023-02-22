@@ -19,52 +19,75 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
   NotificationServices notificationServices = NotificationServices();
   final fireStoreReference = FirebaseFirestore.instance;
 
-  List<FitAppNotification> proba2 = [];
+  List<FitAppNotification> reminderList = [];
 
   @override
   void initState() {
     getDataFromFireStore().then((results) {
       SchedulerBinding.instance.addPostFrameCallback((
-          timeStamp,
-          ) {
+        timeStamp,
+      ) {
         setState(() {});
       });
     });
     super.initState();
     notificationServices.initialiseNotification();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-    List<FitAppNotification> proba = [
-      FitAppNotification(
-          userId: 'Proba',
-          id: 1,
-          title: 'Oho',
-          body: 'Oha,',
-          repeatInterval: RepeatInterval.daily,
-          key: ''),
-      FitAppNotification(
-          userId: 'Probi',
-          id: 1,
-          title: 'Oho',
-          body: 'Oha,',
-          repeatInterval: RepeatInterval.daily,
-          key: ''),
-    ];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildScheduleRow(),
+          const Divider(
+            color: Colors.black,
+          ),
+          buildListView(),
+        ],
+      ),
+    );
+  }
 
+  Widget buildScheduleRow() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text('Schedule notifications'),
+        OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.orange,
+            shadowColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            side: const BorderSide(width: 0.5, color: Colors.black38),
+          ),
+          child: const Text('Schedule'),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
 
-    return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: proba2.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ReminderLVEntry(
-            notification: proba2[index],
-            context: context,
-          );
-        });
+  Widget buildListView() {
+    return Expanded(
+      child: ListView.builder(
+          itemCount: reminderList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ReminderLVEntry(
+              notification: reminderList[index],
+              context: context,
+            );
+          }),
+    );
   }
 
   Future<void> getDataFromFireStore() async {
@@ -82,7 +105,7 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
         )
         .toList();
     setState(() {
-      proba2 = list;
+      reminderList = list;
     });
   }
 

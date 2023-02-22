@@ -7,6 +7,7 @@ class FitAppNotification {
   String? title;
   String? body;
   RepeatInterval repeatInterval;
+  static int notificationAmount = 0;
 
   FitAppNotification({
     required this.key,
@@ -26,10 +27,14 @@ class FitAppNotification {
     return FitAppNotification(
       key: element.id,
       userId: element.data()?['userId'] ?? '',
-      id: element.data()?['id'] ?? 0,
+      id: incNotifAmount(),
       title: element.data()?['title'] ?? '',
       body: element.data()?['body'] ?? '',
       repeatInterval: repeatInterval,
     );
+  }
+
+  static int incNotifAmount() {
+    return notificationAmount++;
   }
 }

@@ -184,13 +184,15 @@ class _ReminderEditingScreenState extends State<ReminderEditingScreen> {
       final fireStoreReference = FirebaseFirestore.instance;
       if (isCreating()) {
         fireStoreReference.collection("reminders").doc().set({
+          'id': FitAppNotification.incNotifAmount(),
           'title': titleController.text,
           'body': bodyController.text,
           'repeatInterval': repeatInterval.name,
           'userID': FirebaseAuth.instance.currentUser!.uid,
         });
       } else {
-        fireStoreReference.collection('reminders')
+        fireStoreReference
+            .collection('reminders')
             .doc(widget.reminder!.key)
             .update({
           'title': titleController.text,
@@ -207,9 +209,11 @@ class _ReminderEditingScreenState extends State<ReminderEditingScreen> {
 
     if (isValid) {
       final fireStoreReference = FirebaseFirestore.instance;
-      fireStoreReference.collection('reminders').doc(widget.reminder!.key).delete();
+      fireStoreReference
+          .collection('reminders')
+          .doc(widget.reminder!.key)
+          .delete();
       Navigator.of(context).pop();
     }
   }
 }
-
