@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import '../screen/reminder_editing_screen.dart';
 
 class ReminderLVEntry extends StatelessWidget {
-  const ReminderLVEntry({Key? key, required this.notification, required this.context})
+  const ReminderLVEntry(
+      {Key? key, required this.notification, required this.context})
       : super(key: key);
   final FitAppNotification notification;
   final BuildContext context;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

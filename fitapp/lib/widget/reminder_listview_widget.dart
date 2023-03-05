@@ -6,7 +6,6 @@ import 'package:fitapp/widget/reminder_listview_entry_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class ReminderListViewWidget extends StatefulWidget {
   const ReminderListViewWidget({Key? key}) : super(key: key);
@@ -30,8 +29,14 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
         setState(() {});
       });
     });
+    setNotifications();
     super.initState();
+  }
+
+  void setNotifications() async {
     notificationServices.initialiseNotification();
+
+    notificationServices.schedulePeNotifications(reminderList);
   }
 
   @override
@@ -83,7 +88,7 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
           itemCount: reminderList.length,
           itemBuilder: (BuildContext context, int index) {
             return ReminderLVEntry(
-              notification: reminderList[index],
+              notification: reminderList[reminderList.length - (index + 1)],
               context: context,
             );
           }),
@@ -113,7 +118,7 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
     notificationServices.sendNotification(1, 'Test', 'Body');
   }
 
-  // void scheduleNotification() {
-  //   notificationServices.schedulePeNotification(notification)
-  // }
+// void scheduleNotification() {
+//   notificationServices.schedulePeNotification(notification)
+// }
 }

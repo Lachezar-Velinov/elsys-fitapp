@@ -4,9 +4,6 @@ import 'package:fitapp/model/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '/model/event.dart';
-import '../utils.dart';
-
 class ReminderEditingScreen extends StatefulWidget {
   const ReminderEditingScreen({Key? key, this.reminder}) : super(key: key);
   final FitAppNotification? reminder;

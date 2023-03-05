@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../auth.dart';
 import '../widget/calendar_widget.dart';
+import 'begin_exercise_screen.dart';
 
 class ParentScreen extends StatefulWidget {
   const ParentScreen({Key? key}) : super(key: key);
@@ -35,7 +36,6 @@ class _ParentScreenState extends State<ParentScreen> {
       bottomNavigationBar: buildBottomNavigationBar(context),
       body: buildScreen(),
       floatingActionButton: buildFloatingActionButton(context),
-
     );
   }
 
@@ -96,7 +96,7 @@ class _ParentScreenState extends State<ParentScreen> {
     if (index == 1) {
       return buildAddReminderButton(context);
     }
-    return null;
+    return buildAddExerciseButton(context);
   }
 
   FloatingActionButton? buildAddEventButton(BuildContext context) {
@@ -128,6 +128,21 @@ class _ParentScreenState extends State<ParentScreen> {
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const ReminderEditingScreen(reminder: null),
+        ),
+      ),
+    );
+  }
+
+  FloatingActionButton? buildAddExerciseButton(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Theme.of(context).primaryColor,
+      child: const Icon(
+        Icons.hourglass_bottom_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const BeginExerciseScreen(),
         ),
       ),
     );

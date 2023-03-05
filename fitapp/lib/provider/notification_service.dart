@@ -37,7 +37,8 @@ class NotificationServices {
     );
   }
 
-  Future<void> schedulePeNotification(FitAppNotification notification) async {
+  Future<void> schedulePeNotifications(
+      List<FitAppNotification> notifications) async {
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
       'reminders',
@@ -50,12 +51,14 @@ class NotificationServices {
       android: androidNotificationDetails,
     );
 
-    await _flutterLocalNotificationsPlugin.periodicallyShow(
-      notification.id,
-      notification.title,
-      notification.body,
-      notification.repeatInterval,
-      notificationDetails,
-    );
+    notifications.forEach((notification) async {
+      await _flutterLocalNotificationsPlugin.periodicallyShow(
+        notification.id,
+        notification.title,
+        notification.body,
+        notification.repeatInterval,
+        notificationDetails,
+      );
+    });
   }
 }
