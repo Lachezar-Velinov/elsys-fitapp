@@ -1,6 +1,6 @@
 import 'package:fitapp/screen/event_editing_screen.dart';
 import 'package:fitapp/screen/reminder_editing_screen.dart';
-import 'package:fitapp/widget/exercise_widget.dart';
+import 'package:fitapp/widget/exercise_listview_widget.dart';
 import 'package:fitapp/widget/reminder_listview_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _ParentScreenState extends State<ParentScreen> {
   final screens = [
     const CalenderWidget(),
     const ReminderListViewWidget(),
-    const ExerciseWidget(),
+    const ExerciseListView(),
   ];
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fitapp/provider/timer_provider.dart';
+import 'package:fitapp/screen/excercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,26 +65,32 @@ class _StartTimerButtonState extends State<StartTimerButton> {
     );
   }
 
-  void _touchButton(TimerProvider timerProvider) {
+  void _touchButton(TimerProvider timerProvider, BuildContext context) {
     if (timer != null) {
       if (timer!.isActive) {
         timer!.cancel();
-
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ExerciseScreen(
+              duration: timerProvider.duration,
+            ),
+          ),
+        );
         return;
       }
     }
     _startTimer(timerProvider);
   }
 
-  String gameButtonText() {
-    if (timer != null) {
-      return 'Start';
-    }
-    if (!timer!.isActive) {
-      return 'Start';
-    }
-    return 'Stop';
-  }
+  // String gameButtonText() {
+  //   if (timer != null) {
+  //     return 'Start';
+  //   }
+  //   if (!timer!.isActive) {
+  //     return 'Start';
+  //   }
+  //   return 'Stop';
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +101,13 @@ class _StartTimerButtonState extends State<StartTimerButton> {
 
     return TextButton(
       onPressed: () {
-        _touchButton(timerProvider);
+        _touchButton(timerProvider, context);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(gameButtonText()),
-          const Icon(Icons.not_started),
+        children: const [
+          Text('Start'),
+          Icon(Icons.not_started),
         ],
       ),
     );

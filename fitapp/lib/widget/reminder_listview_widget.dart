@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitapp/model/notification.dart';
-import 'package:fitapp/provider/notification_service.dart';
+import 'package:fitapp/service/notification_service.dart';
 import 'package:fitapp/widget/reminder_listview_entry_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

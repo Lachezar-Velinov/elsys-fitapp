@@ -58,6 +58,7 @@ class NotificationServices {
         notification.body,
         notification.repeatInterval,
         notificationDetails,
+        androidAllowWhileIdle: true,
       );
     });
   }
