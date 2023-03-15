@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitapp/model/exercise.dart';
+import 'package:fitapp/widget/exercise_listview_entry_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -52,8 +53,8 @@ class _ExerciseListViewState extends State<ExerciseListView> {
     return ListView.builder(
         itemCount: exerciseList.length,
         itemBuilder: (BuildContext context, int index) {
-          return Text(exerciseList[index].duration);
+          return ExerciseLVEntry(
+              exercise: exerciseList[index], context: context);
         });
-    //return Container();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitapp/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
@@ -23,7 +24,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       HealthDataType.BLOOD_GLUCOSE,
       HealthDataType.BLOOD_PRESSURE_DIASTOLIC,
       HealthDataType.BLOOD_PRESSURE_SYSTOLIC,
-      //HealthDataType.BLOOD_OXYGEN,
       HealthDataType.BODY_TEMPERATURE
     ];
     // with coresponsing permissions
@@ -31,7 +31,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       HealthDataAccess.WRITE,
       HealthDataAccess.WRITE,
       HealthDataAccess.WRITE,
-      //HealthDataAccess.WRITE,
       HealthDataAccess.WRITE,
     ];
 
@@ -50,7 +49,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         10.0, HealthDataType.BLOOD_GLUCOSE, workOutBeginAt, workOutEndAt);
     success =
         await health.writeBloodPressure(120, 90, workOutBeginAt, workOutEndAt);
-    //success = await health.writeHealthData(10.0, HealthDataType.BLOOD_OXYGEN, workOutBeginAt, workOutEndAt);
     success = await health.writeHealthData(
         10.0, HealthDataType.BODY_TEMPERATURE, workOutBeginAt, workOutEndAt);
   }
@@ -61,7 +59,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       HealthDataType.BLOOD_GLUCOSE,
       HealthDataType.BLOOD_PRESSURE_DIASTOLIC,
       HealthDataType.BLOOD_PRESSURE_SYSTOLIC,
-      //HealthDataType.BLOOD_OXYGEN,
       HealthDataType.BODY_TEMPERATURE
     ];
     // with coresponsing permissions
@@ -69,7 +66,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       HealthDataAccess.READ,
       HealthDataAccess.READ,
       HealthDataAccess.READ,
-      //HealthDataAccess.READ,
       HealthDataAccess.READ,
     ];
     final workOutEndAt = DateTime.now();
@@ -79,7 +75,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         await health.requestAuthorization(types, permissions: permissions);
 
     if (requested) {
-      print('requested');
+      if (kDebugMode) {
+        print('requested');
+      }
       try {
         // fetch health data
         List<HealthDataPoint> healthData = await health.getHealthDataFromTypes(
@@ -89,17 +87,16 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             ? healthData
             : healthData.sublist(0, 100));
       } catch (error) {
-        print("Exception in getHealthDataFromTypes: $error");
+        if (kDebugMode) {
+          print("Exception in getHealthDataFromTypes: $error");
+        }
       }
-
       // filter out duplicates
       _healthDataList = HealthFactory.removeDuplicates(_healthDataList);
-
-      // print the results
-      _healthDataList.forEach((x) => print(x));
     } else {
-      print("Authorization not granted");
-      //setState(() {} /*_state = AppState.DATA_NOT_FETCHED*/);
+      if (kDebugMode) {
+        print("Authorization not granted");
+      }
     }
   }
 

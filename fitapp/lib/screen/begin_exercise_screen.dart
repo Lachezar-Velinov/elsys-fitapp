@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:fitapp/provider/timer_provider.dart';
-import 'package:fitapp/screen/excercise_screen.dart';
+import 'package:fitapp/screen/exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -82,15 +82,7 @@ class _StartTimerButtonState extends State<StartTimerButton> {
     _startTimer(timerProvider);
   }
 
-  // String gameButtonText() {
-  //   if (timer != null) {
-  //     return 'Start';
-  //   }
-  //   if (!timer!.isActive) {
-  //     return 'Start';
-  //   }
-  //   return 'Stop';
-  // }
+
 
   @override
   Widget build(BuildContext context) {
