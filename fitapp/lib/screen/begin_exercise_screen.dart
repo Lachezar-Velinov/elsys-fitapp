@@ -54,6 +54,7 @@ class _StartTimerButtonState extends State<StartTimerButton> {
   //bool isActive = false;
 
   Timer? timer;
+  bool isRunning = false;
 
   void _startTimer(TimerProvider timerProvider) {
     Duration duration = const Duration(milliseconds: 100);
@@ -93,13 +94,17 @@ class _StartTimerButtonState extends State<StartTimerButton> {
 
     return TextButton(
       onPressed: () {
-        _touchButton(timerProvider, context);
+        setState(() {
+          isRunning = !isRunning;
+          _touchButton(timerProvider, context);
+
+        });
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          Text('Start'),
-          Icon(Icons.not_started),
+        children: [
+          Text(isRunning ? 'Stop' : 'Start'),
+          const Icon(Icons.not_started),
         ],
       ),
     );
