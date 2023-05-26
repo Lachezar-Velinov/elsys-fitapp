@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               title: 'email',
               controller: _controllerEmail,
             ),
-            buildEntryField(title: 'password', controller: _controllerPassword),
+            buildEntryField(title: 'password', controller: _controllerPassword, isPassword: true),
             buildErrorMessage(),
             buildSubmitButton(),
             buildSignUpOrSignIn(),
@@ -54,9 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildEntryField({
     required String title,
     required TextEditingController controller,
+    isPassword = false
   }) =>
       TextField(
         controller: controller,
+        obscureText: isPassword,
         decoration: InputDecoration(
           labelText: title,
         ),

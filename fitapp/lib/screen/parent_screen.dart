@@ -18,11 +18,11 @@ class ParentScreen extends StatefulWidget {
 class _ParentScreenState extends State<ParentScreen> {
   int index = 0;
 
-  final screens = [
-    const CalenderWidget(),
-    const ReminderListViewWidget(),
-    const ExerciseListView(),
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,13 @@ class _ParentScreenState extends State<ParentScreen> {
   }
 
   Widget buildScreen() {
+    final screens = [
+      const CalenderWidget(),
+      const ReminderListViewWidget(),
+      const ExerciseListView(),
+    ];
+//    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Hello, I am here')));
+
     return screens[index];
   }
 
@@ -106,11 +113,13 @@ class _ParentScreenState extends State<ParentScreen> {
         Icons.edit_calendar_outlined,
         color: Colors.white,
       ),
-      onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const EventEditingScreen(),
-        ),
-      ),
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const EventEditingScreen(),
+          ),
+        );
+      },
     );
   }
 
@@ -125,11 +134,15 @@ class _ParentScreenState extends State<ParentScreen> {
         Icons.notification_add_outlined,
         color: Colors.white,
       ),
-      onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const ReminderEditingScreen(reminder: null),
-        ),
-      ),
+      onPressed: () {
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    const ReminderEditingScreen(reminder: null),
+              ),
+            );
+      },
     );
   }
 

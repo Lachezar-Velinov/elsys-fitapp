@@ -32,8 +32,13 @@ class _CalenderWidgetState extends State<CalenderWidget> {
     super.initState();
   }
 
+  void update() {
+    getDataFromFireStore();
+  }
+
   @override
   Widget build(BuildContext context) {
+    update();
     isInitialLoaded = true;
     return SfCalendar(
       dataSource: events,

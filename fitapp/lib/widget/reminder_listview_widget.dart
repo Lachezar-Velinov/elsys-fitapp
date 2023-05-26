@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class ReminderListViewWidget extends StatefulWidget {
-  const ReminderListViewWidget({Key? key}) : super(key: key);
+  const ReminderListViewWidget({Key? key, final boole}) : super(key: key);
 
   @override
   State<ReminderListViewWidget> createState() => _ReminderListViewWidgetState();
@@ -29,9 +29,16 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
         setState(() {});
       });
     });
+
+
     setNotifications();
     super.initState();
   }
+
+  void update() {
+    getDataFromFireStore();
+  }
+
 
   void setNotifications() async {
     notificationServices.initialiseNotification();
@@ -41,6 +48,7 @@ class _ReminderListViewWidgetState extends State<ReminderListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    update();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

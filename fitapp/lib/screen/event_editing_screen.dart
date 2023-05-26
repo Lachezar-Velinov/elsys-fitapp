@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitapp/screen/parent_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/model/event.dart';
@@ -288,7 +289,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
           'endAt': Timestamp.fromDate(endAt),
         });
       }
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     }
   }
 

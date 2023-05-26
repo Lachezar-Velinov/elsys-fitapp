@@ -47,9 +47,13 @@ class _ExerciseListViewState extends State<ExerciseListView> {
       exerciseList = list;
     });
   }
+  void update() {
+    getDataFromFireStore();
+  }
 
   @override
   Widget build(BuildContext context) {
+    update();
     return ListView.builder(
         itemCount: exerciseList.length,
         itemBuilder: (BuildContext context, int index) {
