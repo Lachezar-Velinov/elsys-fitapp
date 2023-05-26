@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Exercise {
+  DateTime beginAt;
   String duration;
   double glucose;
   double bpDiastolic;
   double bpSystolic;
   double bodyTemp;
   String key;
-  
+
   Exercise({
+    required this.beginAt,
     required this.duration,
     required this.glucose,
     required this.bpDiastolic,
@@ -19,7 +23,9 @@ class Exercise {
 
   static Exercise fromFireBaseSnapShotData(dynamic element) {
 
-    return Exercise(duration: element.data()?['duration'] ?? '',
+    return Exercise(
+      beginAt: (element.data()?['beginAt'] as Timestamp).toDate(),
+      duration: element.data()?['duration'] ?? '',
       glucose: double.parse(element.data()?['BLOOD_GLUCOSE'] ?? '0'),
       bpDiastolic: double.parse(element.data()?['BLOOD_PRESSURE_DIASTOLIC'] ?? '0'),
       bpSystolic: double.parse(element.data()?['BLOOD_PRESSURE_SYSTOLIC'] ?? '0'),

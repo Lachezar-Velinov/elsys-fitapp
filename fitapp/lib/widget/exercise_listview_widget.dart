@@ -45,6 +45,7 @@ class _ExerciseListViewState extends State<ExerciseListView> {
         .toList();
     setState(() {
       exerciseList = list;
+      exerciseList.sort((a, b) => a.beginAt.compareTo(b.beginAt));
     });
   }
   void update() {
@@ -54,11 +55,14 @@ class _ExerciseListViewState extends State<ExerciseListView> {
   @override
   Widget build(BuildContext context) {
     update();
-    return ListView.builder(
-        itemCount: exerciseList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ExerciseLVEntry(
-              exercise: exerciseList[index], context: context);
-        });
+    return Container(
+      margin: EdgeInsets.all(10),
+      child: ListView.builder(
+          itemCount: exerciseList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ExerciseLVEntry(
+                exercise: exerciseList[index], context: context);
+          }),
+    );
   }
 }

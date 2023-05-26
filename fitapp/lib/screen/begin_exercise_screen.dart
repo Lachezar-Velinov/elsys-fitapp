@@ -54,6 +54,7 @@ class _StartTimerButtonState extends State<StartTimerButton> {
   //bool isActive = false;
 
   Timer? timer;
+  DateTime? beginAt;
   bool isRunning = false;
 
   void _startTimer(TimerProvider timerProvider) {
@@ -73,6 +74,7 @@ class _StartTimerButtonState extends State<StartTimerButton> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ExerciseScreen(
+              beginAt: beginAt!,
               duration: timerProvider.duration,
             ),
           ),
@@ -80,6 +82,7 @@ class _StartTimerButtonState extends State<StartTimerButton> {
         return;
       }
     }
+    beginAt = DateTime.now();
     _startTimer(timerProvider);
   }
 

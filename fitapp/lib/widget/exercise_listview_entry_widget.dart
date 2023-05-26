@@ -1,4 +1,5 @@
 import 'package:fitapp/model/notification.dart';
+import 'package:fitapp/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class ExerciseLVEntry extends StatelessWidget {
         ),
       ),
       child: Container(
+        margin: EdgeInsets.all(3),
         decoration: BoxDecoration(
             border: Border.all(
               color: Colors.black,
@@ -30,7 +32,7 @@ class ExerciseLVEntry extends StatelessWidget {
             )),
         height: 50,
         child: Center(
-          child: Text('Workout : ${exercise.duration}'),
+          child: Text(Utils.toDateTime(exercise.beginAt)),
         ),
       ),
     );

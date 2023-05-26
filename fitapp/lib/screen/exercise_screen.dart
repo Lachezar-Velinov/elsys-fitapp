@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
 class ExerciseScreen extends StatefulWidget {
-  const ExerciseScreen({Key? key, required this.duration}) : super(key: key);
+  const ExerciseScreen({Key? key, required this.duration, required this.beginAt}) : super(key: key);
 
   final Duration duration;
+  final DateTime beginAt;
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
@@ -144,6 +145,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     final duration = Utils.durationToTime(widget.duration);
     fireStoreReference.collection("workouts").doc().set({
       for(var datapoint in _healthDataList) '${datapoint.typeString}':'${datapoint.value}',
+      'beginAt': Timestamp.fromDate(widget.beginAt),
       'duration':duration,
       'userID': FirebaseAuth.instance.currentUser!.uid,
     });
