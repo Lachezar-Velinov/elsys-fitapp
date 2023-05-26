@@ -31,6 +31,7 @@ class Event {
     DateTime endAt = (e['endAt'] as Timestamp).toDate();
     return Event(
       title: e.data()['title'] ?? 'Error',
+      description: e.data()['description'] ?? 'Error',
       beginAt: beginAt,
       endAt: endAt,
       isAllDay: false,

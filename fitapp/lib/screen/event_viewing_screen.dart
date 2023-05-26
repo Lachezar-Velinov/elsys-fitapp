@@ -18,31 +18,43 @@ class EventViewingScreen extends StatelessWidget {
         leading: const CloseButton(),
         actions: buildViewingActions(context, event),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
-            child: Text(
-              'Event name: ${event.title}',
-              style: const TextStyle(
-                overflow: TextOverflow.fade,
-                fontWeight: FontWeight.w600,
-                fontSize: 32,
-              ),
-            ),
-          ),
-          Text(
-            'Username:${FirebaseAuth.instance.currentUser!.displayName ?? 'No name'}',
-          ),
-          Text(
-            'Event description:\n${event.description}',
-          ),
-          Text(Utils.toDate(event.beginAt))
-        ],
+      body: Container(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1, style: BorderStyle.solid)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            buildContainer('Event name:\n${event.title}'),
+            const Divider(color: Colors.black, thickness: 1),
+            buildContainer('Event begins at:\n${Utils.toDateTime(event.beginAt)}'),
+            const Divider(color: Colors.black, thickness: 1),
+            buildContainer('Event ends at:\n${Utils.toDateTime(event.endAt)}'),
+            const Divider(color: Colors.black, thickness: 1),
+            buildContainer('Event description:\n${event.description}'),
+            // Text(Utils.toDate(event.beginAt))
+          ],
+        ),
       ),
     );
+  }
+
+  Container buildContainer(String text) {
+    return Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              '$text\n',
+              style: const TextStyle(
+                overflow: TextOverflow.fade,
+                fontWeight: FontWeight.w500,
+                fontSize: 28,
+              ),
+            ),
+          );
   }
 
   List<Widget> buildViewingActions(BuildContext context, Event event) {

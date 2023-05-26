@@ -20,6 +20,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   late DateTime endAt;
 
   final titleController = TextEditingController();
+  final bodyController = TextEditingController();
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
   @override
   void dispose() {
     titleController.dispose();
+    bodyController.dispose();
     super.dispose();
   }
 
@@ -55,6 +57,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               buildTitle(),
+              buildBody(),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: buildDateTimePicker(),
@@ -106,6 +109,20 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
         onFieldSubmitted: (_) => saveForm(),
         controller: titleController,
       );
+
+  Widget buildBody() => TextFormField(
+    minLines: 3,
+    maxLines: 3,
+    style: const TextStyle(fontSize: 24),
+    decoration: const InputDecoration(
+      border: UnderlineInputBorder(),
+      hintText: 'Add body',
+    ),
+    validator: (title) =>
+    (title != null && title.isEmpty) ? 'Body cannot be empty' : null,
+    onFieldSubmitted: (_) => saveForm(),
+    controller: bodyController,
+  );
 
   Widget buildDateTimePicker() => Column(
         children: [
@@ -278,6 +295,7 @@ class _EventEditingScreenState extends State<EventEditingScreen> {
       if (isCreating()) {
         fireStoreReference.collection("events").doc().set({
           'title': titleController.text,
+          'description': bodyController.text,
           'beginAt': Timestamp.fromDate(beginAt),
           'endAt': Timestamp.fromDate(endAt),
           'userID': FirebaseAuth.instance.currentUser!.uid,

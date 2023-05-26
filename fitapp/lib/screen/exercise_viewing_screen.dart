@@ -18,17 +18,20 @@ class ExerciseViewingScreen extends StatelessWidget {
         leading: const CloseButton(),
         actions: buildViewingActions(context, exercise),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          buildInfo('Glucose', exercise.glucose.toString()),
-          buildInfo('Body Temperature', exercise.bodyTemp.toString()),
-          buildInfo('Diastolic', exercise.bpDiastolic.toString()),
-          buildInfo('Systolic', exercise.bpSystolic.toString()),
-          buildRow('Duration:', exercise.duration),
-        ],
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            buildInfo('Glucose', exercise.glucose.toString()),
+            buildInfo('Body Temperature', exercise.bodyTemp.toString()),
+            buildInfo('Diastolic', exercise.bpDiastolic.toString()),
+            buildInfo('Systolic', exercise.bpSystolic.toString()),
+            buildRow('Duration:', exercise.duration),
+          ],
+        ),
       ),
     );
   }
@@ -40,22 +43,25 @@ class ExerciseViewingScreen extends StatelessWidget {
   }
 
   Widget buildRow(String name, String value) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 2,
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
+          ),
         ),
-      ),
-      child: Center(
-        child: Expanded(
-          child: Text(
-            '$name: $value',
-            style: const TextStyle(
-              overflow: TextOverflow.fade,
-              fontWeight: FontWeight.w600,
-              fontSize: 26,
+        child: Center(
+          child: Expanded(
+            child: Text(
+              '$name: $value',
+              style: const TextStyle(
+                overflow: TextOverflow.fade,
+                fontWeight: FontWeight.w500,
+                fontSize: 24,
+              ),
             ),
           ),
         ),
@@ -65,13 +71,17 @@ class ExerciseViewingScreen extends StatelessWidget {
 
   List<Widget> buildViewingActions(BuildContext context, Exercise exercise) {
     return [
-      IconButton(
-        onPressed: () {
-          final fireStoreReference = FirebaseFirestore.instance;
-          fireStoreReference.collection('workouts').doc(exercise.key).delete();
-          Navigator.of(context).pop();
-        },
-        icon: const Icon(Icons.delete),
+      Container(
+        color: Colors.red,
+        child: IconButton(
+          color: Colors.white,
+          onPressed: () {
+            final fireStoreReference = FirebaseFirestore.instance;
+            fireStoreReference.collection('workouts').doc(exercise.key).delete();
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.delete),
+        ),
       )
     ];
   }

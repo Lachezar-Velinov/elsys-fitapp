@@ -56,7 +56,7 @@ class _ExerciseListViewState extends State<ExerciseListView> {
   Widget build(BuildContext context) {
     update();
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: ListView.builder(
           itemCount: exerciseList.length,
           itemBuilder: (BuildContext context, int index) {
